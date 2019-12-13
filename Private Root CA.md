@@ -246,7 +246,7 @@ Certificate:
          33:88:5a:d3
 ```
 
-With that complete, you now have a root certificate capable of signing an intermediate certificate.
+With that complete, you now have a root certificate capable of signing an intermediate certificate.  Once you create an intermediate certificate, that certificate will be used to sign certificates for hosts on your network.  This relationship between the root CA certificate, intermediate CA certificate, and host certificate creates what's known as a certificate chain.  In the real world these relationships are trusted by browsers because the browsers or operating systems have agreed to include specific root CA public keys in their certificate stores. In order for your new certificate chain to be trusted by browsers, you will need to copy the root ceritficate PEM file to each computer and install it in that computer's certificate store.
 
 ## Citations
 1) [OpenSSL Certificate Authority](https://jamielinux.com/docs/openssl-certificate-authority/index.html)
