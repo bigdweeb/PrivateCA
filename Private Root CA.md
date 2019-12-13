@@ -21,7 +21,6 @@ Two files must be created to keep track of certificates, **index.txt** and **ser
 ### Create openssl.cnf
 ```
 [ ca ]
-# `man ca`
 default_ca = CA_default
 
 [ CA_default ]
@@ -55,7 +54,7 @@ policy            = policy_strict
 
 [ policy_strict ]
 # The root CA should only sign intermediate certificates that match.
-# See the POLICY FORMAT section of `man ca`.
+# See the POLICY FORMAT section of 'man ca'.
 countryName             = match
 stateOrProvinceName     = match
 organizationName        = match
@@ -65,7 +64,7 @@ emailAddress            = optional
 
 [ policy_loose ]
 # Allow the intermediate CA to sign a more diverse range of certificates.
-# See the POLICY FORMAT section of the `ca` man page.
+# See the POLICY FORMAT section of the ca man page.
 countryName             = optional
 stateOrProvinceName     = optional
 localityName            = optional
@@ -75,7 +74,7 @@ commonName              = supplied
 emailAddress            = optional
 
 [ req ]
-# Options for the `req` tool (`man req`).
+# Options for the req tool ('man req').
 default_bits        = 2048
 distinguished_name  = req_distinguished_name
 string_mask         = utf8only
@@ -87,7 +86,7 @@ default_md          = sha256
 x509_extensions     = v3_ca
 
 [ req_distinguished_name ]
-# See <https://en.wikipedia.org/wiki/Certificate_signing_request>.
+# See (3)
 countryName                     = Country Name (2 letter code)
 stateOrProvinceName             = State or Province Name
 localityName                    = Locality Name
@@ -105,21 +104,21 @@ organizationalUnitName_default  =
 emailAddress_default            =
 
 [ v3_ca ]
-# Extensions for a typical CA (`man x509v3_config`).
+# Extensions for a typical CA ('man x509v3_config').
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid:always,issuer
 basicConstraints = critical, CA:true
 keyUsage = critical, digitalSignature, cRLSign, keyCertSign
 
 [ v3_intermediate_ca ]
-# Extensions for a typical intermediate CA (`man x509v3_config`).
+# Extensions for a typical intermediate CA ('man x509v3_config').
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid:always,issuer
 basicConstraints = critical, CA:true, pathlen:0
 keyUsage = critical, digitalSignature, cRLSign, keyCertSign
 
 [ usr_cert ]
-# Extensions for client certificates (`man x509v3_config`).
+# Extensions for client certificates ('man x509v3_config').
 basicConstraints = CA:FALSE
 nsCertType = client, email
 nsComment = "OpenSSL Generated Client Certificate"
@@ -129,7 +128,7 @@ keyUsage = critical, nonRepudiation, digitalSignature, keyEncipherment
 extendedKeyUsage = clientAuth, emailProtection
 
 [ server_cert ]
-# Extensions for server certificates (`man x509v3_config`).
+# Extensions for server certificates ('man x509v3_config').
 basicConstraints = CA:FALSE
 nsCertType = server
 nsComment = "OpenSSL Generated Server Certificate"
@@ -139,11 +138,11 @@ keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
 
 [ crl_ext ]
-# Extension for CRLs (`man x509v3_config`).
+# Extension for CRLs ('man x509v3_config').
 authorityKeyIdentifier=keyid:always
 
 [ ocsp ]
-# Extension for OCSP signing certificates (`man ocsp`).
+# Extension for OCSP signing certificates ('man ocsp').
 basicConstraints = CA:FALSE
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer
@@ -247,7 +246,9 @@ Certificate:
          33:88:5a:d3
 ```
 
+With that complete, you now have a root certificate capable of signing an intermediate certificate.
 
 ## Citations
 1) [OpenSSL Certificate Authority](https://jamielinux.com/docs/openssl-certificate-authority/index.html)
 2) [A Microsoft PKI Quick Guide](http://techgenix.com/microsoft-pki-quick-guide-part2-design/)
+3) [Wikipedia - Certificate Signing Request](https://en.wikipedia.org/wiki/Certificate_signing_request)
